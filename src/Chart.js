@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
 import ReactFC from 'react-fusioncharts';
 import { subscribeToKafkaSocket } from './loadData';
 
