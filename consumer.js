@@ -25,7 +25,7 @@ io.on('connection', (client) => {
     consumer.on("message", function(message) {
       var buf = new Buffer(message.value, "binary");
       var decodedMessage = JSON.parse(buf.toString());
-      client.emit('timer', decodedMessage);
+      client.emit(decodedMessage['unit_key'], decodedMessage);
       console.log(decodedMessage);
     });
 
