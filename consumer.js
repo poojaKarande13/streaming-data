@@ -13,7 +13,7 @@ io.on('connection', (client) => {
     ];
 
     const options = {
-        autoCommit: true,
+        autoCommit: false,
         fetchMaxWaitMs: 1000,
         fetchMaxBytes: 1024 * 1024,
         encoding: "buffer",

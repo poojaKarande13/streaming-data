@@ -12,13 +12,12 @@ class Chart extends Component {
         data.shift();
       }
       data.push({
-        "label": new Date(),
-        "value": value
+        "label": value.timestamp,
+        "value": value.data
       })
       this.setState({data})
     });
   }
-
 
   state = {
     data: []
