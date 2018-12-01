@@ -1,10 +1,10 @@
 var kafka = require('kafka-node');
 const io = require('socket.io')();
-const kclient = new kafka.Client("localhost:2181");
+const kclient = new kafka.Client("127.0.0.1:2181");
 
 io.on('connection', (client) => {
-  client.on('subscribeToTopic', (interval) => {
-    console.log('client is subscribing to timer with unit key ', interval);
+  client.on('subscribeToTopic', (unit_key) => {
+    console.log('client is subscribing to timer with unit key ', unit_key);
 
     const topics = [
         {
@@ -25,8 +25,8 @@ io.on('connection', (client) => {
     consumer.on("message", function(message) {
       var buf = new Buffer(message.value, "binary");
       var decodedMessage = JSON.parse(buf.toString());
-      client.emit(decodedMessage['unit_key'], decodedMessage);
-      console.log(decodedMessage);
+      client.emit('event', decodedMessage);
+      console.log(decodedMessage['unit_key']);
     });
 
     consumer.on("error", function(err) {

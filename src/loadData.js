@@ -1,7 +1,10 @@
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:8000');
-function subscribeToKafkaSocket(cb) {
-  socket.on('timer', timestamp => cb(null, timestamp));
-  socket.emit('subscribeToTopic', 1000);
+function subscribeToKafkaSocket(cb, unit_key) {
+	//var unit_key = '4b6t2f1te9';
+	// subscribe to socket with name as unit_key
+  socket.on('event', data => cb(null, data));
+  // Request to start kafka consumer
+  socket.emit('subscribeToTopic', unit_key);
 }
 export { subscribeToKafkaSocket };

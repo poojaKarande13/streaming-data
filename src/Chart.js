@@ -6,17 +6,17 @@ import { subscribeToKafkaSocket } from './loadData';
 class Chart extends Component {
   constructor(props) {
     super(props);
-    subscribeToKafkaSocket((err, value) => {
+    subscribeToKafkaSocket((err, event) => {
       var data = this.state.data;
-      if (data.length > 20) {
+      if (data.length > 50) {
         data.shift();
       }
       data.push({
-        "label": value.timestamp,
-        "value": value.data
+        "label": (new Date(event.timestamp)).toTimeString(),
+        "value": Math.random()
       })
       this.setState({data})
-    });
+    }, 'tcde9abaa2');
   }
 
   state = {
@@ -24,6 +24,7 @@ class Chart extends Component {
   };
 
   render () {
+    console.log('event');
     var chartConfigs = {
       type: 'line',
       width: 600,
