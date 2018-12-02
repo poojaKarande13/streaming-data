@@ -13,7 +13,7 @@ class Chart extends Component {
       }
       data.push({
         "label": (new Date(event.timestamp)).toTimeString(),
-        "value": Math.random()
+        "value": event.data
       })
       this.setState({data})
     }, 'tcde9abaa2');
@@ -34,8 +34,8 @@ class Chart extends Component {
       "chart": {
         "caption": "Countries With Most Oil Reserves [2017-18]",
         "subCaption": "In MMbbl = One Million barrels",
-        "xAxisName": "Country",
-        "yAxisName": "Reserves (MMbbl)",
+        "xAxisName": "Time",
+        "yAxisName": "Output Active Power (kW)",
         "numberSuffix": "K",
         "theme": "fusion"
       },

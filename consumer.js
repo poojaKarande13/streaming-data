@@ -5,6 +5,15 @@ const kclient = new kafka.Client("127.0.0.1:2181");
 io.on('connection', (client) => {
   client.on('subscribeToTopic', (unit_key) => {
     console.log('client is subscribing to timer with unit key ', unit_key);
+    /*
+    count = 0;
+    setInterval(() => {
+      var event = {'timestamp': new Date(), 'data': {"1": count}};
+      count = count + 1;
+      client.emit('event', event);
+      console.log(event);
+    }, 100);
+    */
 
     const topics = [
         {
@@ -26,7 +35,7 @@ io.on('connection', (client) => {
       var buf = new Buffer(message.value, "binary");
       var decodedMessage = JSON.parse(buf.toString());
       client.emit('event', decodedMessage);
-      console.log(decodedMessage['unit_key']);
+      console.log(decodedMessage);
     });
 
     consumer.on("error", function(err) {

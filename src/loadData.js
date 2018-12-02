@@ -7,4 +7,6 @@ function subscribeToKafkaSocket(cb, unit_key) {
   // Request to start kafka consumer
   socket.emit('subscribeToTopic', unit_key);
 }
+
+
 export { subscribeToKafkaSocket };
