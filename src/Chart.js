@@ -7,12 +7,13 @@ class Chart extends Component {
   constructor(props) {
     super(props);
     subscribeToKafkaSocket((err, event) => {
+      console.log(event);
       var data = this.state.data;
       if (data.length > 50) {
         data.shift();
       }
       data.push({
-        "label": (new Date(event.timestamp)).toTimeString(),
+        "label": (new Date(event.timestamp)).toLocaleString('en-US'),
         "value": event.data
       })
       this.setState({data})
@@ -32,11 +33,9 @@ class Chart extends Component {
       dataFormat: 'json',
       dataSource: {
       "chart": {
-        "caption": "Countries With Most Oil Reserves [2017-18]",
-        "subCaption": "In MMbbl = One Million barrels",
+        "caption": "Output active power from solar plant",
         "xAxisName": "Time",
         "yAxisName": "Output Active Power (kW)",
-        "numberSuffix": "K",
         "theme": "fusion"
       },
       "data": this.state.data

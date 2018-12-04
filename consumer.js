@@ -2,51 +2,43 @@ var kafka = require('kafka-node');
 const io = require('socket.io')();
 const kclient = new kafka.Client("127.0.0.1:2181");
 
-io.on('connection', (client) => {
-  client.on('subscribeToTopic', (unit_key) => {
+io.on('connection', (socket) => {
+  socket.on('subscribeToTopic', (unit_key) => {
     console.log('client is subscribing to timer with unit key ', unit_key);
-    /*
-    count = 0;
-    setInterval(() => {
-      var event = {'timestamp': new Date(), 'data': {"1": count}};
-      count = count + 1;
-      client.emit('event', event);
-      console.log(event);
-    }, 100);
-    */
+  });
 
-    const topics = [
-        {
-            topic: "streaming-data"
-        }
-    ];
+  const topics = [
+      {
+          topic: "streaming-data"
+      }
+  ];
 
-    const options = {
-        autoCommit: false,
-        fetchMaxWaitMs: 1000,
-        fetchMaxBytes: 1024 * 1024,
-        encoding: "buffer",
-        fromOffset: false
-    };
+  const options = {
+      autoCommit: true,
+      autoCommitIntervalMs: 5000,
+      fetchMaxWaitMs: 1000,
+      fetchMaxBytes: 1024 * 1024,
+      encoding: "buffer",
+      fromOffset: true
+  };
 
-    const consumer = new kafka.HighLevelConsumer(kclient, topics, options);
+  const consumer = new kafka.HighLevelConsumer(kclient, topics, options);
 
-    consumer.on("message", function(message) {
-      var buf = new Buffer(message.value, "binary");
-      var decodedMessage = JSON.parse(buf.toString());
-      client.emit('event', decodedMessage);
-      console.log(decodedMessage);
-    });
+  consumer.on("message", function(message) {
+    var buf = new Buffer(message.value, "binary");
+    var decodedMessage = JSON.parse(buf.toString());
+    io.sockets.emit('broadcast',decodedMessage);
+    console.log(decodedMessage);
+  });
 
-    consumer.on("error", function(err) {
-        console.log("error", err);
-    });
+  consumer.on("error", function(err) {
+      console.log("error", err);
+  });
 
-    process.on("SIGINT", function() {
-        consumer.close(true, function() {
-            process.exit();
-        });
-    });
+  process.on("SIGINT", function() {
+      consumer.close(true, function() {
+          process.exit();
+      });
   });
 });
 
@@ -54,6 +46,15 @@ const port = 8000;
 io.listen(port);
 console.log('listening on port ', port);
 
+/*
+count = 0;
+setInterval(() => {
+  var event = {'timestamp': new Date(), 'data': {"1": count}};
+  count = count + 1;
+  client.emit('event', event);
+  console.log(event);
+}, 100);
+*/
 
 // 'use strict';
 // const io = require('socket.io')();

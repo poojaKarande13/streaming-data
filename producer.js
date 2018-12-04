@@ -17,10 +17,6 @@ producer.on("error", function(error) {
 
 const KafkaService = {
     sendRecord: ({ data}, callback = () => {}) => {
-        // if (!userId) {
-        //     return callback(new Error(`A userId must be provided.`));
-        // }
-
         const event = {
             timestamp: new Date(),
             data: data
@@ -44,7 +40,7 @@ const KafkaService = {
 
 var count = 0
 setInterval(() => {
-  KafkaService.sendRecord({data: count});
+  KafkaService.sendRecord({data: Math.random()});
   count = count + 1;
 
-}, 50);
+}, 100);
