@@ -4,17 +4,19 @@
   "private": true,
   "dependencies": {
     "fusioncharts": "^3.13.2-sr.1",
+    "kafka-node": "3.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-fusioncharts": "^2.0.7",
     "react-scripts": "2.1.1",
-    "socket.io": "^2.1.1",
-    "kafka-node": "3.0.1"
+    "socket.io": "^2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "REACT_APP_ENV=development sh -ac '. src/configs/.env.${REACT_APP_ENV}; PORT=${REACT_APP_PORTAL_PORT} react-scripts start'",
+    "test": "react-scripts test --env=jsdom",
+    "build": "sh -ac '. src/configs/.env.${REACT_APP_ENV}; react-scripts build'",
+    "build:staging": "REACT_APP_ENV=staging npm run build",
+    "build:production": "REACT_APP_ENV=production npm run build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
