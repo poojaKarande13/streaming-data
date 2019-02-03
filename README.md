@@ -44,18 +44,21 @@ You can download the source code of this experiment from this github link:
 
 ### Quickstart
 
-npm start
+Start Kafka
 
-Start Confluent
+```$CONFLUENT_HOME/bin/confluent start```
 
-./bin/confluent start
-
+Start the Kafka producer and the consumer which is also the Socket publisher
+```
 node producer.js
 
 node consumer.js
+```
+
+Start the node app
+```npm start```
 
 Go To
-
 http://localhost:3000/
 
 ### References
