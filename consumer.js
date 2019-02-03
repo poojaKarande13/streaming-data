@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     var buf = new Buffer(message.value, "binary");
     var decodedMessage = JSON.parse(buf.toString());
     io.sockets.emit('broadcast',decodedMessage);
-    console.log(decodedMessage);
+    //console.log(decodedMessage);
   });
 
   consumer.on("error", function(err) {

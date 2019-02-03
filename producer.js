@@ -23,7 +23,7 @@ const KafkaService = {
         };
 
         const buffer = new Buffer.from(JSON.stringify(event));
-        console.log(event);
+        //console.log(event);
         // Create a new payload
         const record = [
             {
@@ -43,4 +43,4 @@ setInterval(() => {
   KafkaService.sendRecord({data: Math.random()});
   count = count + 1;
 
-}, 100);
+}, 1000);

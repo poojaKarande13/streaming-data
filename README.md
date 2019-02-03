@@ -19,6 +19,15 @@ In this experiment we will plot data from Kafka onto Fusion charts.
 
 ### Architecture
 
+npm start
+
+Start Confluent
+
+./bin/confluent start
+
+node producer.js
+
+node consumer.js
 
 ### References
 
