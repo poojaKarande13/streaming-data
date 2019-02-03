@@ -17,6 +17,8 @@ In this experiment we will plot streaming data from Kafka topics directly onto b
 
 ### Architecture
 
+![image] (https://github.com/poojaKarande13/streaming-data/blob/master/images/image.jpg?raw=true)
+
 The source of the data are sensors on the field, which send data to server via API calls. These APIs act as a kafka producer and insert data into the Kafka topics. A Kafka consumer reads data from the topic, filters it and sends it to a socket which act as a publisher of the data to the browser. One of the easiest way to create sockets is with the help of the Socket.IO library.
 It is best for realtime bidirectional communication with the browser and server.
 
