@@ -18,6 +18,7 @@ producer.on("error", function(error) {
 const KafkaService = {
     sendRecord: ({ data}, callback = () => {}) => {
         const event = {
+          // attach timestamp and send data to kafka
             timestamp: new Date(),
             data: data
         };
@@ -40,7 +41,6 @@ const KafkaService = {
 
 var count = 0
 setInterval(() => {
+  // collect data from sensor and publish to kafka topic at regular interval
   KafkaService.sendRecord({data: Math.random()});
-  count = count + 1;
-
-}, 1000);
+}, 100);

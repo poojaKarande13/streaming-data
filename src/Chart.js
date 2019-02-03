@@ -26,7 +26,7 @@ class Chart extends Component {
         "value": event.data
       })
       this.setState({data: data, data1: data1})
-    }, 'tcde9abaa2');
+    });
   }
 
   state = {
